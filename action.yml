@@ -17,6 +17,7 @@ runs:
     shell: pwsh
     run: |
       Get-ChildItem -Path '${{ github.workspace }}/RequiredModules' -Recurse
+      Get-Module -ListAvailable
 
   - uses: PoshCode/Actions/pester@v1
     with:
