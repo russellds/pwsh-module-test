@@ -1,0 +1,54 @@
+name: 'Tag GitHub Action'
+
+on: [workflow_dispatch]
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 0
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+
+    - name: Execute GitVersion
+      id: gitVersion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+
+    - name: Tag Action
+      shell: pwsh
+      run: |
+        Write-Host "GitVersion: $env:GitVersion_SemVer"
+
+        $tagSemVer = "v{0}" -f $env:GitVersion_SemVer
+        $tagMajor = "v{0}" -f $env:GitVersion_Major
+
+        git config user.name 'GitHub Action'
+        git config user.email 'githubaction@users.noreply.github.com'
+
+        $gitTags = git tag *>&1
+
+        if ($gitTags -contains $tagSemVer) {
+          Write-Host "Tag $( $tagSemVer ) found!"
+        } else {
+          if ($gitTags -contains $tagMajor) {
+            Write-Host "Removing Tag: $( $tagMajor )"
+            git push origin ":refs/tags/$tagMajor"
+          }
+
+          Write-Host "Adding tag: $( $tagSemVer )"
+          git tag -a -m "Version $( $tagSemVer )" $tagSemVer
+
+          Write-Host "Adding tag: $( $tagMajor )"
+          git tag -a -m "Version $( $tagMajor )" $tagMajor
+
+          Write-Host "Pushing tags to remote."
+          git push --follow-tags
+        }

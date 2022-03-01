@@ -1,0 +1,19 @@
+mode: Mainline
+commit-date-format: yyyyMMddTHHmmss
+branches:
+  main:
+    increment: Inherit
+    tag: ''
+  feature:
+    regex: feature(s)?[-/]
+    tag: beta
+    increment: Minor
+  other:
+    regex: ^(?!main)(?!feature)
+    tag: beta
+    increment: Patch
+    source-branches:
+    - main
+ignore:
+  sha: []
+merge-message-formats: {}
