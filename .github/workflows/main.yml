@@ -1,6 +1,6 @@
 name: 'Tag GitHub Action'
 
-on: [workflow_dispatch]
+on: [push]
 
 jobs:
   action:
