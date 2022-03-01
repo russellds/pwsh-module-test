@@ -16,7 +16,7 @@ runs:
   - name: PowerShell
     shell: pwsh
     run: |
-      Get-ChildItem -Path ${{ github.workspace }}/RequiredModules' -Recurse
+      Get-ChildItem -Path '${{ github.workspace }}/RequiredModules' -Recurse
 
   - uses: PoshCode/Actions/pester@v1
     with:
