@@ -17,7 +17,7 @@ runs:
       Get-Module -Name @('Configuration', 'Metadata', 'Pester', 'ModuleBuilder', 'PSScriptAnalyzer', 'ImportExcel') -ListAvailable |
         Format-Table
 
-  - uses: PoshCode/Actions/install-requiredmodules@v1
+  - uses: russellds/Actions/install-requiredmodules@v1
     with:
       requiredModules-path: ${{ github.workspace }}/RequiredModules/RequiredModules.psd1
 
