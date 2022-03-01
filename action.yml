@@ -12,6 +12,8 @@ runs:
     uses: actions/download-artifact@v2
 
   - uses: PoshCode/Actions/install-requiredmodules@v1
+    with:
+      requiredModules-path: ${{ github.workspace }}/RequiredModules/RequiredModules.psd1
 
   - name: PowerShell
     shell: pwsh
