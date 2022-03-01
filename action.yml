@@ -24,8 +24,7 @@ runs:
   - name: PowerShell
     shell: pwsh
     run: |
-      $contents = Get-Content -Path ${{ github.workspace }}/RequiredModules/RequiredModules.psd1
-      Write-Host "Contents: $( $contents )"
+      Get-ChildItem -Path ${{github.workspace}} -Recurse
       Get-Module -Name @('Configuration', 'Metadata', 'Pester', 'ModuleBuilder', 'PSScriptAnalyzer', 'ImportExcel') -ListAvailable |
         Format-Table
 
