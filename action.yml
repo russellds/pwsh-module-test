@@ -17,7 +17,7 @@ runs:
     with:
       codeCoveragePath: Modules/${{ inputs.moduleName }}
       moduleUnderTest: ${{ inputs.moduleName }}
-      additionalModulePaths: ${{github.workspace}}/Modules
+      additionalModulePaths: '${{github.workspace}}/Modules; ${{github.workspace}}/RequiredModules'
 
   - name: Upload Results
     uses: actions/upload-artifact@v2
